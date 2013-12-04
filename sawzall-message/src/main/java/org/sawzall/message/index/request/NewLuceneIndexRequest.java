@@ -7,7 +7,7 @@ package org.sawzall.message.index.request;
  * Time: 10:12 PM
  * To change this template use File | Settings | File Templates.
  */
-public class NewIndexRequest {
+public class NewLuceneIndexRequest {
     String location;
 
     public String getLocation() {return location;}
@@ -18,7 +18,7 @@ public class NewIndexRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NewIndexRequest that = (NewIndexRequest) o;
+        NewLuceneIndexRequest that = (NewLuceneIndexRequest) o;
 
         if (location != null ? !location.equals(that.location) : that.location != null) return false;
 

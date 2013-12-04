@@ -1,6 +1,6 @@
 package org.sawzall.message.index.response;
 
-import org.sawzall.message.index.request.NewIndexRequest;
+import org.sawzall.message.index.request.NewLuceneIndexRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,15 +9,15 @@ import org.sawzall.message.index.request.NewIndexRequest;
  * Time: 10:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class NewIndexResponse {
-    NewIndexRequest request;
+public class NewLuceneIndexResponse {
+    NewLuceneIndexRequest request;
     boolean processed;
 
-    public NewIndexRequest getRequest() {
+    public NewLuceneIndexRequest getRequest() {
         return request;
     }
 
-    public void setRequest(NewIndexRequest request) {
+    public void setRequest(NewLuceneIndexRequest request) {
         this.request = request;
     }
 
