@@ -11,11 +11,9 @@ import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
 /**
- * Created with IntelliJ IDEA.
  * User: mdonnelly
  * Date: 12/4/13
  * Time: 8:44 PM
- * To change this template use File | Settings | File Templates.
  */
 public class NewLuceneIndexTest {
     static ActorSystem system;
@@ -36,7 +34,7 @@ public class NewLuceneIndexTest {
         final NewLuceneIndex actor = ref.underlyingActor();
 
         NewLuceneIndexRequest request = new NewLuceneIndexRequest();
-        request.setLocation("./index/");
+        request.setLocation("index/");
         NewLuceneIndexResponse response = actor.createIndex(request);
 
         Assert.assertTrue(response.isProcessed());

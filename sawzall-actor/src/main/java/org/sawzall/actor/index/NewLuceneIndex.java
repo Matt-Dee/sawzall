@@ -34,9 +34,12 @@ public class NewLuceneIndex extends UntypedActor{
         IndexWriterConfig config;
 
         try{
+            File f = new File(request.getLocation());
             index = new NIOFSDirectory(new File(request.getLocation()));
             config = new IndexWriterConfig(Version.LUCENE_46, analyzer);
+
             response.setProcessed(true);
+            response.setPhysicalLocation(f.getAbsolutePath());
         }catch(Exception e){
             index = null;
             config = null;

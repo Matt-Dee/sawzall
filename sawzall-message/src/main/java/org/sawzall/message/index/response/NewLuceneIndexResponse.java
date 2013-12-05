@@ -17,6 +17,7 @@ public class NewLuceneIndexResponse {
     IndexWriterConfig luceneConfig;
     Directory indexLocation;
     int numberCreationTries;
+    String physicalLocation;
 
     public NewLuceneIndexRequest getRequest() {
         return request;
@@ -50,5 +51,19 @@ public class NewLuceneIndexResponse {
         this.indexLocation = indexLocation;
     }
 
+    public int getNumberCreationTries() {
+        return numberCreationTries;
+    }
 
+    public void setNumberCreationTries(int numberCreationTries) {
+        this.numberCreationTries = numberCreationTries;
+    }
+
+    public String getPhysicalLocation() {
+        return physicalLocation;
+    }
+
+    public void setPhysicalLocation(String physicalLocation) {
+        this.physicalLocation = physicalLocation;
+    }
 }
