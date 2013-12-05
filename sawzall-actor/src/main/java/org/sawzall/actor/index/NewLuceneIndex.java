@@ -2,12 +2,9 @@ package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.NIOFSDirectory;
-import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.Version;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.response.NewLuceneIndexResponse;

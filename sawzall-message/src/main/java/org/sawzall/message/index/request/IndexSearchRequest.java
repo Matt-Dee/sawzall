@@ -3,7 +3,6 @@ package org.sawzall.message.index.request;
 import org.joda.time.DateTime;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
