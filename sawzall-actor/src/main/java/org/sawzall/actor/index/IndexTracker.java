@@ -1,6 +1,7 @@
 package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
+import org.sawzall.message.index.request.IndexLocation;
 import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
 import java.io.FileWriter;
@@ -15,25 +16,30 @@ import java.io.FileWriter;
 public class IndexTracker extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
-        if(message instanceof NewLuceneIndexResponse){
-            recordIndexLocation((NewLuceneIndexResponse)message);
-//            getSender().tell("",getSelf());
+        String fileLocation = null;
 
-            // need to recover if file write fails.  probably check for a string wrapped message type to just concat to list of lucene
-            // indexes.  We don't want duplicate indexes either.
+        if(message instanceof NewLuceneIndexResponse){
+            fileLocation = ((NewLuceneIndexResponse)message).getPhysicalLocation();
+        }else if(message instanceof IndexLocation){
+            fileLocation = ((IndexLocation)message).getPhysicalLocation();
+        }
+
+        if( !recordIndexLocation(fileLocation) ){
+            getSender().tell(new IndexLocation(fileLocation),getSelf());
         }
     }
 
-    public void recordIndexLocation(NewLuceneIndexResponse response){
+    public boolean recordIndexLocation(String fileLocation){
         String filename= "lucene-index-locations.txt";
 
         try{
             FileWriter fw = new FileWriter(filename,true);
-            fw.write(response.getPhysicalLocation() + "\n");
+            fw.write(fileLocation + "\n");
             fw.close();
         }catch(Exception e){
-
+            return false;
         }
+        return true;
     }
 
 }
