@@ -18,6 +18,20 @@
         <module>sawzall-message</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <name>maven-central</name>
+            <url>http://repo.typesafe.com/typesafe/releases/</url>
+        </repository>
+
+        <repository>
+            <id>typesafe</id>
+            <name>Typesafe Repository</name>
+            <url>http://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

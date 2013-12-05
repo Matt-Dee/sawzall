@@ -1,5 +1,7 @@
 package org.sawzall.message.index.response;
 
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.store.Directory;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 
 /**
@@ -12,6 +14,9 @@ import org.sawzall.message.index.request.NewLuceneIndexRequest;
 public class NewLuceneIndexResponse {
     NewLuceneIndexRequest request;
     boolean processed;
+    IndexWriterConfig luceneConfig;
+    Directory indexLocation;
+    int numberCreationTries;
 
     public NewLuceneIndexRequest getRequest() {
         return request;
@@ -28,4 +33,22 @@ public class NewLuceneIndexResponse {
     public void setProcessed(boolean processed) {
         this.processed = processed;
     }
+
+    public IndexWriterConfig getLuceneConfig() {
+        return luceneConfig;
+    }
+
+    public void setLuceneConfig(IndexWriterConfig luceneConfig) {
+        this.luceneConfig = luceneConfig;
+    }
+
+    public Directory getIndexLocation() {
+        return indexLocation;
+    }
+
+    public void setIndexLocation(Directory indexLocation) {
+        this.indexLocation = indexLocation;
+    }
+
+
 }
