@@ -30,7 +30,7 @@ public class IndexTracker extends UntypedActor {
     }
 
     public boolean recordIndexLocation(String fileLocation){
-        String filename= "lucene-index-locations.txt";
+        String filename= "./lucene-index-locations.txt";
 
         try{
             FileWriter fw = new FileWriter(filename,true);
