@@ -4,6 +4,7 @@ import akka.actor.UntypedActor;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
+import org.sawzall.message.index.request.IndexCreateRequest;
 import org.sawzall.message.index.request.SearchField;
 import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
@@ -26,14 +27,17 @@ public class IndexWriter extends UntypedActor {
             this.luceneConfig = ((NewLuceneIndexResponse)message).getLuceneConfig();
             this.indexLocation = ((NewLuceneIndexResponse)message).getIndexLocation();
             org.apache.lucene.index.IndexWriter w = new org.apache.lucene.index.IndexWriter(indexLocation, luceneConfig);
-        }else if(message instanceof SearchField){
-            addDoc((SearchField)message);
+        }else if(message instanceof IndexCreateRequest){
+            addDoc((IndexCreateRequest)message);
         }
     }
 
-    public void addDoc(SearchField s) throws IOException {
+    public void addDoc(IndexCreateRequest s) throws IOException {
         Document doc = new Document();
-        doc.add(s.getField());
+
+        for(SearchField field : s.getSearchField()){
+            doc.add(field.getField());
+        }
         w.addDocument(doc);
     }
 }

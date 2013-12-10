@@ -19,11 +19,11 @@ public class IndexCreateRequest {
     public List<SearchField> getSearchField() {return searchField;}
     public void setSearchField(List<SearchField> searchField) {this.searchField = searchField;}
 
-    public DateTime getDate() {return date;}
-    public void setDate(DateTime date) {this.date = date;}
+//    public DateTime getDate() {return date;}
+//    public void setDate(DateTime date) {this.date = date;}
 
-    public Long getValue() {return value;}
-    public void setValue(Long value) {this.value = value;}
+//    public Long getValue() {return value;}
+//    public void setValue(Long value) {this.value = value;}
 
 
     @Override
