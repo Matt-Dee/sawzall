@@ -1,5 +1,6 @@
 package org.sawzall.message.index.response;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -20,6 +21,10 @@ public class IndexSet {
     }
 
     public Set<String> add(String s){
+        if(set == null){
+            set = new LinkedHashSet<String>();
+        }
+
         this.set.add(s);
         return set;
     }

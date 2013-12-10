@@ -40,7 +40,10 @@ public class GetIndexListFromDisk extends UntypedActor {
             }
 
             fr.close();
+
+            return set;
         } catch (Exception e) {
+            e.printStackTrace();
             if (fr != null) {
                 try {
                     fr.close();

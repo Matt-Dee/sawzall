@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
+import java.io.File;
+
 /**
  * User: mdonnelly
  * Date: 12/5/13
@@ -26,6 +28,7 @@ public class IndexTrackerTest {
 
     @After
     public void tearDown() throws Exception {
+        new File("./lucene-index-locations.txt").delete();
     }
 
 
