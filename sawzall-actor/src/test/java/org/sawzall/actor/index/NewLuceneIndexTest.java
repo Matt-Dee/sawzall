@@ -33,8 +33,7 @@ public class NewLuceneIndexTest {
         final TestActorRef<NewLuceneIndex> ref = TestActorRef.create(system, props, "testA");
         final NewLuceneIndex actor = ref.underlyingActor();
 
-        NewLuceneIndexRequest request = new NewLuceneIndexRequest();
-        request.setLocation("index/");
+        NewLuceneIndexRequest request = new NewLuceneIndexRequest("index/");
         NewLuceneIndexResponse response = actor.createIndex(request);
 
         Assert.assertTrue(response.isProcessed());

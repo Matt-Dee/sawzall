@@ -1,6 +1,7 @@
 package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
+import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.response.IndexSet;
 import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
@@ -17,13 +18,11 @@ public class GetIndexListFromDisk extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
         if(message instanceof  String){
-            getSender().tell(this.getListAtStartup(message.toString()), this.getSelf());
+            IndexSet set = this.getListAtStartup(message.toString());
+            for(String s : set.getSet()){
+                getSender().tell( new NewLuceneIndexRequest(s), this.getSelf());
+            }
         }
-//        else if(message instanceof NewLuceneIndexResponse){
-//            set.add(((NewLuceneIndexResponse) message).getPhysicalLocation());
-//            getSender().tell(set, getSelf());
-//        }
-//
     }
 
     //Should only be called at startup

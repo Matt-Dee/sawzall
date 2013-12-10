@@ -10,6 +10,10 @@ package org.sawzall.message.index.request;
 public class NewLuceneIndexRequest {
     String location;
 
+    public NewLuceneIndexRequest(String location){
+        this.location = location;
+    }
+
     public String getLocation() {return location;}
     public void setLocation(String location) {this.location = location;}
 
