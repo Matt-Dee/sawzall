@@ -40,6 +40,17 @@
             <artifactId>lucene-core</artifactId>
             <version>4.6.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-test-framework</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-test-framework</artifactId>
+            <version>4.6.0</version>
+        </dependency>
     </dependencies>
+
 
 </project>

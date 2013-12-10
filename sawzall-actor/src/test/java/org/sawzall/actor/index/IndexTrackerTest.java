@@ -7,8 +7,6 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
 import java.io.File;
 
