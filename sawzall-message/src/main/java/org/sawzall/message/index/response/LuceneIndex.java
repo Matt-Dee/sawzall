@@ -12,20 +12,11 @@ import org.sawzall.message.index.request.NewLuceneIndexRequest;
  * To change this template use File | Settings | File Templates.
  */
 public class LuceneIndex {
-    NewLuceneIndexRequest request;
     boolean processed;
     IndexWriterConfig luceneConfig;
     Directory indexLocation;
     int numberCreationTries;
     String physicalLocation;
-
-    public NewLuceneIndexRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(NewLuceneIndexRequest request) {
-        this.request = request;
-    }
 
     public boolean isProcessed() {
         return processed;

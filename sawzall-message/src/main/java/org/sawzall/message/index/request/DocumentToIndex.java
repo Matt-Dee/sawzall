@@ -2,6 +2,7 @@ package org.sawzall.message.index.request;
 
 import org.joda.time.DateTime;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +18,14 @@ public class DocumentToIndex {
     Long value;
 
     public List<SearchField> getSearchField() {return searchField;}
-    public void setSearchField(List<SearchField> searchField) {this.searchField = searchField;}
+    public void setSearchFields(List<SearchField> searchField) {this.searchField = searchField;}
+
+    public void addSearchField(SearchField searchField) {
+        if(this.searchField == null){
+            this.searchField = new LinkedList<SearchField>();
+        }
+        this.searchField.add(searchField);
+    }
 
 //    public DateTime getDate() {return date;}
 //    public void setDate(DateTime date) {this.date = date;}

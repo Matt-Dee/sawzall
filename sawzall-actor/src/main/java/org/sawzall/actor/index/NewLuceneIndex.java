@@ -46,8 +46,6 @@ public class NewLuceneIndex extends UntypedActor{
             response.setProcessed(false);
         }
 
-
-        response.setRequest(request);
         response.setLuceneConfig(config);
         response.setIndexLocation(index);
 

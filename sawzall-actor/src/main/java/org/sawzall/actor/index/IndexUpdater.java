@@ -20,7 +20,6 @@ public class IndexUpdater extends UntypedActor {
 
     IndexWriterConfig luceneConfig = null;
     Directory indexLocation = null;
-    IndexWriter w;
 
     @Override
     public void onReceive(Object message) throws Exception {
@@ -44,7 +43,7 @@ public class IndexUpdater extends UntypedActor {
 
     public void addDoc(DocumentToIndex s) throws IOException {
 
-        IndexWriter w = new IndexWriter(indexLocation, luceneConfig);
+        IndexWriter w = new IndexWriter(indexLocation, luceneConfig.clone());
         Document doc = new Document();
 
         for(SearchField field : s.getSearchField()){
