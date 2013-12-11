@@ -53,21 +53,21 @@ public class IndexDriverTest {
 
         final Props createProps = Props.create(IndexDriver.class);
         final TestActorRef<IndexDriver> createPropsRef = TestActorRef.create(system, createProps, "test-index-write");
-        final IndexDriver createPropsActor = createPropsRef.underlyingActor();
+        final IndexDriver indexDriverActor = createPropsRef.underlyingActor();
 
-        createPropsActor.onReceive(100);
+        indexDriverActor.onReceive(100);
 
         for(LuceneIndex index : indexes){
-            createPropsActor.onReceive(index);
+            indexDriverActor.onReceive(index);
         }
 
         System.out.println(new DateTime().toString("hh:mm:ss"));
         for(int i = 0; i < 100000; i++){
-            createPropsActor.onReceive(createDocument(i));
+            indexDriverActor.onReceive(createDocument(i));
         }
         System.out.println(new DateTime().toString("hh:mm:ss"));
 
-//        Assert.assertTrue(createPropsActor.recordIndexLocation("./testGetIndexListFromDisk"));
+//        Assert.assertTrue(indexDriverActor.recordIndexLocation("./testGetIndexListFromDisk"));
 
     }
 
