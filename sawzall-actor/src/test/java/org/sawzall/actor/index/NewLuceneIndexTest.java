@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.response.NewLuceneIndexResponse;
+import org.sawzall.message.index.response.LuceneIndex;
 
 /**
  * User: mdonnelly
@@ -34,7 +34,7 @@ public class NewLuceneIndexTest {
         final NewLuceneIndex actor = ref.underlyingActor();
 
         NewLuceneIndexRequest request = new NewLuceneIndexRequest("index/");
-        NewLuceneIndexResponse response = actor.createIndex(request);
+        LuceneIndex response = actor.createIndex(request);
 
         Assert.assertTrue(response.isProcessed());
     }

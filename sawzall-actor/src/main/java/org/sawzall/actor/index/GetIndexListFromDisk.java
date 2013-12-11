@@ -3,7 +3,6 @@ package org.sawzall.actor.index;
 import akka.actor.UntypedActor;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.response.IndexSet;
-import org.sawzall.message.index.response.NewLuceneIndexResponse;
 
 import java.io.*;
 

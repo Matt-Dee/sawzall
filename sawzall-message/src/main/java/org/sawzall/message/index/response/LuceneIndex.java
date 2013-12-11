@@ -11,7 +11,7 @@ import org.sawzall.message.index.request.NewLuceneIndexRequest;
  * Time: 10:28 PM
  * To change this template use File | Settings | File Templates.
  */
-public class NewLuceneIndexResponse {
+public class LuceneIndex {
     NewLuceneIndexRequest request;
     boolean processed;
     IndexWriterConfig luceneConfig;

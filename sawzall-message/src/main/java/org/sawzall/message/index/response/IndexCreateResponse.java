@@ -1,6 +1,6 @@
 package org.sawzall.message.index.response;
 
-import org.sawzall.message.index.request.IndexCreateRequest;
+import org.sawzall.message.index.request.DocumentToIndex;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,14 +10,14 @@ import org.sawzall.message.index.request.IndexCreateRequest;
  * To change this template use File | Settings | File Templates.
  */
 public class IndexCreateResponse {
-    IndexCreateRequest request;
+    DocumentToIndex request;
     boolean processed;
 
-    public IndexCreateRequest getRequest() {
+    public DocumentToIndex getRequest() {
         return request;
     }
 
-    public void setRequest(IndexCreateRequest request) {
+    public void setRequest(DocumentToIndex request) {
         this.request = request;
     }
 

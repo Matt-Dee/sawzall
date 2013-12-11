@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 9:49 PM
  * To change this template use File | Settings | File Templates.
  */
-public class IndexCreateRequest {
+public class DocumentToIndex {
     List<SearchField> searchField;
     DateTime date;
     Long value;
@@ -31,7 +31,7 @@ public class IndexCreateRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        IndexCreateRequest that = (IndexCreateRequest) o;
+        DocumentToIndex that = (DocumentToIndex) o;
 
         if (date != null ? !date.equals(that.date) : that.date != null) return false;
         if (searchField != null ? !searchField.equals(that.searchField) : that.searchField != null) return false;
