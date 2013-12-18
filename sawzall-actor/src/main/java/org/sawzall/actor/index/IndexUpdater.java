@@ -44,12 +44,14 @@ public class IndexUpdater extends UntypedActor {
     public void addDoc(DocumentToIndex s) throws IOException {
 
         IndexWriter w = new IndexWriter(indexLocation, luceneConfig.clone());
+
         Document doc = new Document();
 
         for(SearchField field : s.getSearchField()){
             doc.add(field.getField());
         }
         w.addDocument(doc);
+        System.out.println("Doc Written = " + s.toString());
         w.close();
     }
 }

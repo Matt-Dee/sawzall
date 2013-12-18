@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.sawzall.message.index.request.DocumentToIndex;
+import org.sawzall.message.index.request.LuceneQuery;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.request.SearchField;
 import org.sawzall.message.index.response.LuceneIndex;
@@ -37,7 +38,7 @@ public class IndexDriverTest {
     @Test
     public void testOnReceive() throws Exception {
 
-        int numberOfIndexWriters = 100;
+        int numberOfIndexWriters = 10;
 
         final Props props = Props.create(NewLuceneIndex.class);
         final TestActorRef<NewLuceneIndex> ref = TestActorRef.create(system, props, "create-indexes-for-testing");
@@ -55,17 +56,66 @@ public class IndexDriverTest {
         final TestActorRef<IndexDriver> createPropsRef = TestActorRef.create(system, createProps, "test-index-write");
         final IndexDriver indexDriverActor = createPropsRef.underlyingActor();
 
-        indexDriverActor.onReceive(100);
+        indexDriverActor.onReceive(numberOfIndexWriters);
 
         for(LuceneIndex index : indexes){
             indexDriverActor.onReceive(index);
         }
 
-        System.out.println(new DateTime().toString("hh:mm:ss"));
-        for(int i = 0; i < 100000; i++){
+        System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
+        for(int i = 0; i < 100001; i++){
             indexDriverActor.onReceive(createDocument(i));
         }
-        System.out.println(new DateTime().toString("hh:mm:ss"));
+        System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
+
+
+        Thread.sleep(400000);
+
+        indexDriverActor.onReceive(new String("FOO"));
+        System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
+        LuceneQuery query = new LuceneQuery();
+        SearchField sf = new SearchField();
+        sf.setFieldId("id");
+        sf.setValue("100");
+        query.addSearchField(sf);
+
+        indexDriverActor.onReceive(query);
+
+        query = new LuceneQuery();
+        sf = new SearchField();
+        sf.setFieldId("id");
+        sf.setValue("1");
+        query.addSearchField(sf);
+
+        indexDriverActor.onReceive(query);
+
+        query = new LuceneQuery();
+        sf = new SearchField();
+        sf.setFieldId("id");
+        sf.setValue("2");
+        query.addSearchField(sf);
+
+        indexDriverActor.onReceive(query);
+
+        query = new LuceneQuery();
+        sf = new SearchField();
+        sf.setFieldId("id");
+        sf.setValue("3");
+        query.addSearchField(sf);
+
+        indexDriverActor.onReceive(query);
+
+        query = new LuceneQuery();
+        sf = new SearchField();
+        sf.setFieldId("id");
+        sf.setValue("4");
+        query.addSearchField(sf);
+
+        indexDriverActor.onReceive(query);
+
+        System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
+
+        Thread.sleep(400000);
 
 //        Assert.assertTrue(indexDriverActor.recordIndexLocation("./testGetIndexListFromDisk"));
 
@@ -83,7 +133,7 @@ public class IndexDriverTest {
 
     private SearchField getId(int id){
         SearchField sf = new SearchField();
-        sf.setType(SearchField.TypeEnum.string.toString());
+        sf.setType(SearchField.TypeEnum.text.toString());
         sf.setFieldId("id");
 //        sf.setValue("" + new Random().nextInt());
         sf.setValue(""+id);
@@ -94,7 +144,7 @@ public class IndexDriverTest {
 
     private SearchField getField(){
         SearchField sf = new SearchField();
-        sf.setType(SearchField.TypeEnum.string.toString());
+        sf.setType(SearchField.TypeEnum.text.toString());
         sf.setFieldId("field");
         sf.setValue("foo");
         sf.setStore(true);

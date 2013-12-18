@@ -55,4 +55,16 @@ public class DocumentToIndex {
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString(){
+
+        StringBuilder sb = new StringBuilder();
+
+        for(SearchField sf : searchField){
+            sb.append(sf.getFieldId() + ":" + sf.getValue() + "\t");
+
+        }
+        return sb.toString();
+    }
 }
