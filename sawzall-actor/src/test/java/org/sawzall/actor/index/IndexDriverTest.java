@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.request.DocumentToIndex;
 import org.sawzall.message.index.request.LuceneQuery;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
@@ -46,6 +47,7 @@ public class IndexDriverTest {
 
         List<LuceneIndex> indexes = new LinkedList<LuceneIndex>();
 
+        //Create all the indexes
         for(int i=0;i<numberOfIndexWriters;i++){
             NewLuceneIndexRequest indexRequest = new NewLuceneIndexRequest("index_" + i + "/");
             LuceneIndex index = actor.createIndex(indexRequest);
@@ -56,21 +58,33 @@ public class IndexDriverTest {
         final TestActorRef<IndexDriver> createPropsRef = TestActorRef.create(system, createProps, "test-index-write");
         final IndexDriver indexDriverActor = createPropsRef.underlyingActor();
 
+        //Tell the Driver how many updaters we want
         indexDriverActor.onReceive(numberOfIndexWriters);
 
+        //Create the indexes writers
         for(LuceneIndex index : indexes){
             indexDriverActor.onReceive(index);
         }
 
+        //Create a bunch of random documents for indexing.
         System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
         for(int i = 0; i < 100001; i++){
             indexDriverActor.onReceive(createDocument(i));
         }
         System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
 
+        Thread.sleep(8000);
 
-        Thread.sleep(400000);
+        //Flush all the docs out to disk for the indexes.
+        IndexUpdaterMessages updater = new IndexUpdaterMessages();
+        IndexUpdaterMessages.FlushIndex flush = updater.new FlushIndex();
+        for(int i = 0; i < numberOfIndexWriters; i++) {
+            indexDriverActor.onReceive(flush);
+        }
 
+
+        //try to read random doc id's.  Don't know why the broadcast router in the driver just keeps
+        //spamming all of the readers.  It will keep reading until the test exits.
         indexDriverActor.onReceive(new String("FOO"));
         System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
         LuceneQuery query = new LuceneQuery();

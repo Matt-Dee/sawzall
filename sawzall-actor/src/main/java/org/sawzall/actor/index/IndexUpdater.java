@@ -5,6 +5,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
+import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.request.DocumentToIndex;
 import org.sawzall.message.index.request.SearchField;
 import org.sawzall.message.index.response.LuceneIndex;
@@ -21,6 +22,8 @@ public class IndexUpdater extends UntypedActor {
     IndexWriterConfig luceneConfig = null;
     Directory indexLocation = null;
 
+    IndexWriter w = null;
+
     @Override
     public void onReceive(Object message) throws Exception {
 
@@ -36,6 +39,8 @@ public class IndexUpdater extends UntypedActor {
         }else if(message instanceof LuceneIndex){
             this.luceneConfig = ((LuceneIndex)message).getLuceneConfig();
             this.indexLocation = ((LuceneIndex)message).getIndexLocation();
+       }else if(message instanceof IndexUpdaterMessages.FlushIndex){
+            flushIndex();
        }else{
             getSender().tell(message, getSelf());
        }
@@ -43,7 +48,9 @@ public class IndexUpdater extends UntypedActor {
 
     public void addDoc(DocumentToIndex s) throws IOException {
 
-        IndexWriter w = new IndexWriter(indexLocation, luceneConfig.clone());
+        if( w == null ){
+            w = new IndexWriter(indexLocation, luceneConfig.clone());
+        }
 
         Document doc = new Document();
 
@@ -52,6 +59,14 @@ public class IndexUpdater extends UntypedActor {
         }
         w.addDocument(doc);
         System.out.println("Doc Written = " + s.toString());
+    }
+
+    public void flushIndex() throws IOException{
+        w.commit();
+    }
+
+    public void closeIndex() throws IOException{
         w.close();
     }
+
 }

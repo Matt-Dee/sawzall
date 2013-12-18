@@ -5,6 +5,7 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.routing.BroadcastRouter;
 import akka.routing.RoundRobinRouter;
+import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.request.DocumentToIndex;
 import org.sawzall.message.index.request.LuceneQuery;
 import org.sawzall.message.index.response.LuceneIndex;
@@ -47,7 +48,9 @@ public class IndexDriver extends UntypedActor {
         }else if( ( message instanceof DocumentToIndex ) && ( indexUpdateRouter != null )){
             indexUpdateRouter.tell(message, getSelf());
         }else if( message instanceof LuceneQuery ){
-            indexReaderRouter.tell( message, getSelf() );
+            indexReaderRouter.tell(message, getSelf());
+        }else if( ( message instanceof IndexUpdaterMessages.FlushIndex ) || ( message instanceof  IndexUpdaterMessages.CloseIndex ) ){
+            indexUpdateRouter.tell(message, getSelf());
         }else{
             getSender().tell(message, getSelf());
         }

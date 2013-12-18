@@ -96,7 +96,7 @@ public class ClassicIndexReader extends UntypedActor {
 
             // reader can only be closed when there
             // is no need to access the documents any more.
-            reader.close();
+ //           reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
