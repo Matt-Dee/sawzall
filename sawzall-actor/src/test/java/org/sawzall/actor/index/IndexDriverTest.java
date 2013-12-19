@@ -7,12 +7,12 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sawzall.message.index.IndexReader;
+import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.request.DocumentToIndex;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.request.SearchField;
-import org.sawzall.message.index.response.LuceneIndex;
+import org.sawzall.message.index.LuceneIndex;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -76,8 +76,7 @@ public class IndexDriverTest {
         Thread.sleep(8000);
 
         //Flush all the docs out to disk for the indexes.
-        IndexUpdaterMessages updater = new IndexUpdaterMessages();
-        IndexUpdaterMessages.FlushIndex flush = updater.new FlushIndex();
+        IndexUpdaterMessages.FlushIndex flush = new IndexUpdaterMessages().new FlushIndex();
         for(int i = 0; i < numberOfIndexWriters; i++) {
             indexDriverActor.onReceive(flush);
         }
@@ -89,7 +88,7 @@ public class IndexDriverTest {
         //spamming all of the readers.  It will keep reading until the test exits.
         indexDriverActor.onReceive(new String("FOO"));
         System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
-        IndexReader.LuceneQuery query = new IndexReader().new LuceneQuery();
+        IndexReaderMessages.LuceneQuery query = new IndexReaderMessages().new LuceneQuery();
         SearchField sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("100");
@@ -97,7 +96,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new IndexReader().new LuceneQuery();
+        query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("1");
@@ -105,7 +104,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new IndexReader().new LuceneQuery();
+        query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("2");
@@ -113,7 +112,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new IndexReader().new LuceneQuery();
+        query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("3");
@@ -121,7 +120,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new IndexReader().new LuceneQuery();
+        query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("4");

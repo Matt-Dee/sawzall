@@ -13,9 +13,9 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
-import org.sawzall.message.index.IndexReader;
+import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.request.SearchField;
-import org.sawzall.message.index.response.LuceneIndex;
+import org.sawzall.message.index.LuceneIndex;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,9 +40,9 @@ public class ClassicIndexReader extends UntypedActor {
         if(message instanceof LuceneIndex){
             this.indexLocation = ((LuceneIndex)message).getIndexLocation();
             getSender().tell("", getSelf());
-        }else if (message instanceof IndexReader.LuceneQuery){
+        }else if (message instanceof IndexReaderMessages.LuceneQuery){
             try{
-            query((IndexReader.LuceneQuery)message);
+            query((IndexReaderMessages.LuceneQuery)message);
             }catch (Exception e){e.printStackTrace();}
 //            getSender().tell(new String(""), getSelf());
         }
@@ -52,7 +52,7 @@ public class ClassicIndexReader extends UntypedActor {
         this.indexLocation = location;
     }
 
-    public void query(IndexReader.LuceneQuery query) throws IOException, ParseException {
+    public void query(IndexReaderMessages.LuceneQuery query) throws IOException, ParseException {
 
         StringBuilder querystr = new StringBuilder();
         DirectoryReader reader = null;

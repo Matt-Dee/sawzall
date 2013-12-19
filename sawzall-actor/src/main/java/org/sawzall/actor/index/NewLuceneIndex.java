@@ -7,7 +7,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.response.LuceneIndex;
+import org.sawzall.message.index.LuceneIndex;
 
 import java.io.File;
 

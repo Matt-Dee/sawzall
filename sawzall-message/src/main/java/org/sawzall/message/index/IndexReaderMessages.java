@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 12/18/13
  * Time: 7:51 PM
  */
-public class IndexReader {
+public class IndexReaderMessages {
 
     public class LuceneQuery {
         List<SearchField> searchField;

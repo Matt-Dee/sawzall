@@ -8,7 +8,7 @@ import org.apache.lucene.store.Directory;
 import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.request.DocumentToIndex;
 import org.sawzall.message.index.request.SearchField;
-import org.sawzall.message.index.response.LuceneIndex;
+import org.sawzall.message.index.LuceneIndex;
 
 import java.io.IOException;
 

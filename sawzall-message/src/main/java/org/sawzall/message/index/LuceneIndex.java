@@ -1,4 +1,4 @@
-package org.sawzall.message.index.response;
+package org.sawzall.message.index;
 
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;

@@ -2,7 +2,7 @@ package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
 import org.sawzall.message.index.request.IndexLocation;
-import org.sawzall.message.index.response.LuceneIndex;
+import org.sawzall.message.index.LuceneIndex;
 
 import java.io.FileWriter;
 
