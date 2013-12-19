@@ -7,9 +7,9 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sawzall.message.index.IndexReader;
 import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.request.DocumentToIndex;
-import org.sawzall.message.index.request.LuceneQuery;
 import org.sawzall.message.index.request.NewLuceneIndexRequest;
 import org.sawzall.message.index.request.SearchField;
 import org.sawzall.message.index.response.LuceneIndex;
@@ -82,12 +82,14 @@ public class IndexDriverTest {
             indexDriverActor.onReceive(flush);
         }
 
+        Thread.sleep(8000);
+
 
         //try to read random doc id's.  Don't know why the broadcast router in the driver just keeps
         //spamming all of the readers.  It will keep reading until the test exits.
         indexDriverActor.onReceive(new String("FOO"));
         System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
-        LuceneQuery query = new LuceneQuery();
+        IndexReader.LuceneQuery query = new IndexReader().new LuceneQuery();
         SearchField sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("100");
@@ -95,7 +97,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new LuceneQuery();
+        query = new IndexReader().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("1");
@@ -103,7 +105,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new LuceneQuery();
+        query = new IndexReader().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("2");
@@ -111,7 +113,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new LuceneQuery();
+        query = new IndexReader().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("3");
@@ -119,7 +121,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        query = new LuceneQuery();
+        query = new IndexReader().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
         sf.setValue("4");

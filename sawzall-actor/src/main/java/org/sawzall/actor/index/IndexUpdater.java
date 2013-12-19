@@ -41,6 +41,8 @@ public class IndexUpdater extends UntypedActor {
             this.indexLocation = ((LuceneIndex)message).getIndexLocation();
        }else if(message instanceof IndexUpdaterMessages.FlushIndex){
             flushIndex();
+       }else if(message instanceof IndexUpdaterMessages.CloseIndex){
+            closeIndex();
        }else{
             getSender().tell(message, getSelf());
        }

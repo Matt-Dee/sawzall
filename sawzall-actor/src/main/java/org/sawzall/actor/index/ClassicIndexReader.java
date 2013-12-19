@@ -1,13 +1,9 @@
 package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
-import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -17,7 +13,7 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
-import org.sawzall.message.index.request.LuceneQuery;
+import org.sawzall.message.index.IndexReader;
 import org.sawzall.message.index.request.SearchField;
 import org.sawzall.message.index.response.LuceneIndex;
 
@@ -44,9 +40,9 @@ public class ClassicIndexReader extends UntypedActor {
         if(message instanceof LuceneIndex){
             this.indexLocation = ((LuceneIndex)message).getIndexLocation();
             getSender().tell("", getSelf());
-        }else if (message instanceof LuceneQuery){
+        }else if (message instanceof IndexReader.LuceneQuery){
             try{
-            query((LuceneQuery)message);
+            query((IndexReader.LuceneQuery)message);
             }catch (Exception e){e.printStackTrace();}
             getSender().tell(message, getSelf());
         }
@@ -56,7 +52,7 @@ public class ClassicIndexReader extends UntypedActor {
         this.indexLocation = location;
     }
 
-    public void query(LuceneQuery query) throws IOException, ParseException {
+    public void query(IndexReader.LuceneQuery query) throws IOException, ParseException {
 
         StringBuilder querystr = new StringBuilder();
         DirectoryReader reader = null;
