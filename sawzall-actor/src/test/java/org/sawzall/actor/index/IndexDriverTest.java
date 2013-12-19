@@ -82,7 +82,7 @@ public class IndexDriverTest {
             indexDriverActor.onReceive(flush);
         }
 
-        Thread.sleep(8000);
+        Thread.sleep(1000);
 
 
         //try to read random doc id's.  Don't know why the broadcast router in the driver just keeps
@@ -131,7 +131,7 @@ public class IndexDriverTest {
 
         System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
 
-        Thread.sleep(400000);
+        Thread.sleep(3000);
 
 //        Assert.assertTrue(indexDriverActor.recordIndexLocation("./testGetIndexListFromDisk"));
 

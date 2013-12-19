@@ -44,7 +44,7 @@ public class ClassicIndexReader extends UntypedActor {
             try{
             query((IndexReader.LuceneQuery)message);
             }catch (Exception e){e.printStackTrace();}
-            getSender().tell(message, getSelf());
+//            getSender().tell(new String(""), getSelf());
         }
     }
 

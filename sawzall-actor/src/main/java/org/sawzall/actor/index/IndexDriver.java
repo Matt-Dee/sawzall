@@ -84,8 +84,11 @@ public class IndexDriver extends UntypedActor {
         }
 
         for(ActorRef ref : refList){
+
             list.add(ref.path().toString());
         }
+
+       System.out.println("******************* " + list.size());
         return list;
     }
 
