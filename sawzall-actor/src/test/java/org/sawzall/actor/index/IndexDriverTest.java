@@ -87,7 +87,7 @@ public class IndexDriverTest {
         //try to read random doc id's.  Don't know why the broadcast router in the driver just keeps
         //spamming all of the readers.  It will keep reading until the test exits.
         indexDriverActor.onReceive(new String("FOO"));
-        System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
+        System.out.println("Index read start:  " + new DateTime().toString("hh:mm:ss:SSS"));
         IndexReaderMessages.LuceneQuery query = new IndexReaderMessages().new LuceneQuery();
         SearchField sf = new SearchField();
         sf.setFieldId("id");
@@ -128,7 +128,7 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
-        System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
+        System.out.println("Index read end:    " + new DateTime().toString("hh:mm:ss:SSS"));
 
         Thread.sleep(3000);
 
