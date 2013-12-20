@@ -7,8 +7,8 @@ import akka.routing.BroadcastRouter;
 import akka.routing.RoundRobinRouter;
 import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.IndexUpdaterMessages;
-import org.sawzall.message.index.request.DocumentToIndex;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.lucene.DocumentToIndex;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 import java.util.LinkedList;
 import java.util.List;

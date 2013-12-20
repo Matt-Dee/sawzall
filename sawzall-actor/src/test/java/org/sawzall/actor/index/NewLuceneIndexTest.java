@@ -7,8 +7,8 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.NewLuceneIndexMessages;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 /**
  * User: mdonnelly
@@ -33,7 +33,7 @@ public class NewLuceneIndexTest {
         final TestActorRef<NewLuceneIndex> ref = TestActorRef.create(system, props, "testA");
         final NewLuceneIndex actor = ref.underlyingActor();
 
-        NewLuceneIndexRequest request = new NewLuceneIndexRequest("index/");
+        NewLuceneIndexMessages.CreateIndex request = new NewLuceneIndexMessages().new CreateIndex("index/");
         LuceneIndex response = actor.createIndex(request);
 
         Assert.assertTrue(response.isProcessed());

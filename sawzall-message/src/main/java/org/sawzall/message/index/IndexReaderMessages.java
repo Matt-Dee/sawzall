@@ -1,6 +1,6 @@
 package org.sawzall.message.index;
 
-import org.sawzall.message.index.request.SearchField;
+import org.sawzall.message.index.lucene.SearchField;
 
 import java.util.LinkedList;
 import java.util.List;

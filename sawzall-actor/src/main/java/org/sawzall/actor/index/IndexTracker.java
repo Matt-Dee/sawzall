@@ -1,8 +1,8 @@
 package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
-import org.sawzall.message.index.request.IndexLocation;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.IndexTrackerMessages;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 import java.io.FileWriter;
 
@@ -20,12 +20,12 @@ public class IndexTracker extends UntypedActor {
 
         if(message instanceof LuceneIndex){
             fileLocation = ((LuceneIndex)message).getPhysicalLocation();
-        }else if(message instanceof IndexLocation){
-            fileLocation = ((IndexLocation)message).getPhysicalLocation();
+        }else if(message instanceof IndexTrackerMessages.IndexLocation){
+            fileLocation = ((IndexTrackerMessages.IndexLocation)message).getPhysicalLocation();
         }
 
         if( !recordIndexLocation(fileLocation) ){
-            getSender().tell(new IndexLocation(fileLocation),getSelf());
+            getSender().tell(new IndexTrackerMessages().new IndexLocation(fileLocation),getSelf());
         }
     }
 

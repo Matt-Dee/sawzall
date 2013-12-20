@@ -1,8 +1,8 @@
 package org.sawzall.actor.index;
 
 import akka.actor.UntypedActor;
-import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.response.IndexSet;
+import org.sawzall.message.index.IndexListOnDiskMessages;
+import org.sawzall.message.index.NewLuceneIndexMessages;
 
 import java.io.*;
 
@@ -12,20 +12,20 @@ import java.io.*;
  * Time: 8:36 PM
  */
 public class GetIndexListFromDisk extends UntypedActor {
-    IndexSet set = new IndexSet();
+    IndexListOnDiskMessages.IndexSet set = new IndexListOnDiskMessages().new IndexSet();
 
     @Override
     public void onReceive(Object message) throws Exception {
         if(message instanceof  String){
-            IndexSet set = this.getListAtStartup(message.toString());
+            IndexListOnDiskMessages.IndexSet set = this.getListAtStartup(message.toString());
             for(String s : set.getSet()){
-                getSender().tell( new NewLuceneIndexRequest(s), this.getSelf());
+                getSender().tell( new NewLuceneIndexMessages().new CreateIndex(s), this.getSelf());
             }
         }
     }
 
     //Should only be called at startup
-    public IndexSet getListAtStartup(String filename){
+    public IndexListOnDiskMessages.IndexSet getListAtStartup(String filename){
 
         BufferedReader fr = null;
         try {

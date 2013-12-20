@@ -1,7 +1,6 @@
-package org.sawzall.message.index.request;
+package org.sawzall.message.index.lucene;
 
 import org.apache.lucene.document.*;
-import org.apache.lucene.index.FieldInfo;
 
 /**
  * Created with IntelliJ IDEA.

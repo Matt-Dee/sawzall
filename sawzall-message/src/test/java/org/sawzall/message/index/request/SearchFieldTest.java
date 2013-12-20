@@ -1,6 +1,7 @@
 package org.sawzall.message.index.request;
 
 import org.junit.Test;
+import org.sawzall.message.index.lucene.SearchField;
 
 /**
  * User: mdonnelly

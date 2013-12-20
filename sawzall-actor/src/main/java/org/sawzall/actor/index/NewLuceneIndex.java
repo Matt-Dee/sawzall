@@ -6,8 +6,8 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
-import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.NewLuceneIndexMessages;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 import java.io.File;
 
@@ -22,12 +22,12 @@ public class NewLuceneIndex extends UntypedActor{
 
     @Override
     public void onReceive(Object message) throws Exception {
-        if(message instanceof NewLuceneIndexRequest){
-            getSender().tell(createIndex((NewLuceneIndexRequest)message),getSelf());
+        if(message instanceof NewLuceneIndexMessages.CreateIndex){
+            getSender().tell(createIndex((NewLuceneIndexMessages.CreateIndex)message),getSelf());
         }
     }
 
-    public LuceneIndex createIndex(NewLuceneIndexRequest request){
+    public LuceneIndex createIndex(NewLuceneIndexMessages.CreateIndex request){
         StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_46);
         LuceneIndex response = new LuceneIndex();
         Directory index;

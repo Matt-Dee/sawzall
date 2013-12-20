@@ -1,8 +1,7 @@
-package org.sawzall.message.index;
+package org.sawzall.message.index.lucene;
 
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
-import org.sawzall.message.index.request.NewLuceneIndexRequest;
 
 /**
  * Created with IntelliJ IDEA.

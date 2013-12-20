@@ -14,8 +14,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 import org.sawzall.message.index.IndexReaderMessages;
-import org.sawzall.message.index.request.SearchField;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.lucene.SearchField;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 import java.io.File;
 import java.io.IOException;

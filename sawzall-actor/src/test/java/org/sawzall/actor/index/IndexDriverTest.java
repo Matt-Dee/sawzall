@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.IndexUpdaterMessages;
-import org.sawzall.message.index.request.DocumentToIndex;
-import org.sawzall.message.index.request.NewLuceneIndexRequest;
-import org.sawzall.message.index.request.SearchField;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.NewLuceneIndexMessages;
+import org.sawzall.message.index.lucene.DocumentToIndex;
+import org.sawzall.message.index.lucene.SearchField;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class IndexDriverTest {
 
         //Create all the indexes
         for(int i=0;i<numberOfIndexWriters;i++){
-            NewLuceneIndexRequest indexRequest = new NewLuceneIndexRequest("index_" + i + "/");
+            NewLuceneIndexMessages.CreateIndex indexRequest = new NewLuceneIndexMessages().new CreateIndex("index_" + i + "/");
             LuceneIndex index = actor.createIndex(indexRequest);
             indexes.add(index);
         }

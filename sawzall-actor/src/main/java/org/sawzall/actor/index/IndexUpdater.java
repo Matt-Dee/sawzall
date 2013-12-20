@@ -6,9 +6,9 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.sawzall.message.index.IndexUpdaterMessages;
-import org.sawzall.message.index.request.DocumentToIndex;
-import org.sawzall.message.index.request.SearchField;
-import org.sawzall.message.index.LuceneIndex;
+import org.sawzall.message.index.lucene.DocumentToIndex;
+import org.sawzall.message.index.lucene.SearchField;
+import org.sawzall.message.index.lucene.LuceneIndex;
 
 import java.io.IOException;
 

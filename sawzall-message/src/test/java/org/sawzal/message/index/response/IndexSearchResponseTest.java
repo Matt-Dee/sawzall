@@ -1,6 +1,6 @@
-package org.sawzall.message.index.response;
+package org.sawzal.message.index.response;
 
-import org.sawzall.message.index.request.DocumentToIndex;
+import org.sawzall.message.index.lucene.IndexSearchRequest;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,15 +9,15 @@ import org.sawzall.message.index.request.DocumentToIndex;
  * Time: 10:27 PM
  * To change this template use File | Settings | File Templates.
  */
-public class IndexCreateResponse {
-    DocumentToIndex request;
+public class IndexSearchResponseTest {
+    IndexSearchRequest request;
     boolean processed;
 
-    public DocumentToIndex getRequest() {
+    public IndexSearchRequest getRequest() {
         return request;
     }
 
-    public void setRequest(DocumentToIndex request) {
+    public void setRequest(IndexSearchRequest request) {
         this.request = request;
     }
 
