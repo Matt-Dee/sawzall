@@ -73,7 +73,7 @@ public class IndexDriverTest {
         }
         System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
 
-        Thread.sleep(8000);
+        Thread.sleep(500);
 
         //Flush all the docs out to disk for the indexes.
         IndexUpdaterMessages.FlushIndex flush = new IndexUpdaterMessages().new FlushIndex();
@@ -83,10 +83,10 @@ public class IndexDriverTest {
 
         Thread.sleep(1000);
 
-
         //try to read random doc id's.  Don't know why the broadcast router in the driver just keeps
         //spamming all of the readers.  It will keep reading until the test exits.
         indexDriverActor.onReceive(new String("FOO"));
+        Thread.sleep(2000);
         System.out.println("Index read start:  " + new DateTime().toString("hh:mm:ss:SSS"));
         IndexReaderMessages.LuceneQuery query = new IndexReaderMessages().new LuceneQuery();
         SearchField sf = new SearchField();
@@ -128,9 +128,17 @@ public class IndexDriverTest {
 
         indexDriverActor.onReceive(query);
 
+        query = new IndexReaderMessages().new LuceneQuery();
+        sf = new SearchField();
+        sf.setFieldId("id");
+        sf.setValue("99999");
+        query.addSearchField(sf);
+
+        indexDriverActor.onReceive(query);
+
         System.out.println("Index read end:    " + new DateTime().toString("hh:mm:ss:SSS"));
 
-        Thread.sleep(3000);
+        Thread.sleep(1500);
 
 //        Assert.assertTrue(indexDriverActor.recordIndexLocation("./testGetIndexListFromDisk"));
 

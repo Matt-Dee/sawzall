@@ -77,18 +77,19 @@ public class IndexDriver extends UntypedActor {
         List<String> list = new LinkedList<String>();
 
         int count = 0;
-        for(int i = 0; i < numberWriters; i++){
-            for(LuceneIndex index : indexes){
-               refList.add(this.getContext().actorOf(Props.create(ClassicIndexReader.class, index.getPhysicalLocation()), "reader_" + count++));
-            }
+        for (LuceneIndex index : indexes) {
+            ActorRef ref = this.getContext().actorOf(Props.create(ClassicIndexReaderPool.class), "reader_" + count++);
+            ref.tell(index, getSelf());
+            ref.tell(numberWriters, getSelf());
+            refList.add(ref);
         }
 
-        for(ActorRef ref : refList){
+
+        for (ActorRef ref : refList) {
 
             list.add(ref.path().toString());
         }
 
-       System.out.println("******************* " + list.size());
         return list;
     }
 

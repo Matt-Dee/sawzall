@@ -87,7 +87,7 @@ public class ClassicIndexReader extends UntypedActor {
             for (int i = 0; i < hits.length; ++i) {
                 int docId = hits[i].doc;
                 Document d = searcher.doc(docId);
-                System.out.println(d.get("id") + "\t" + d.get("field") + "\t" + indexLocation.toString());
+                System.out.println(d.get("id") + "\t\t" + d.get("field") + "\t" + indexLocation.toString());
             }
 
             // reader can only be closed when there
