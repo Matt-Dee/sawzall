@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sawzall.message.index.IndexDriverMessages;
 import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.IndexUpdaterMessages;
 import org.sawzall.message.index.NewLuceneIndexMessages;
@@ -66,9 +67,10 @@ public class IndexDriverTest {
             indexDriverActor.onReceive(index);
         }
 
+
         //Create a bunch of random documents for indexing.
         System.out.println("Index start:  " + new DateTime().toString("hh:mm:ss:SSS"));
-        for(int i = 0; i < 100001; i++){
+        for(int i = 0; i < 100000; i++){
             indexDriverActor.onReceive(createDocument(i));
         }
         System.out.println("Index end:    " + new DateTime().toString("hh:mm:ss:SSS"));
@@ -85,13 +87,16 @@ public class IndexDriverTest {
 
         //try to read random doc id's.  Don't know why the broadcast router in the driver just keeps
         //spamming all of the readers.  It will keep reading until the test exits.
-        indexDriverActor.onReceive(new String("FOO"));
+        indexDriverActor.onReceive(new IndexDriverMessages().new CreateReaders());
         Thread.sleep(2000);
         System.out.println("Index read start:  " + new DateTime().toString("hh:mm:ss:SSS"));
         IndexReaderMessages.LuceneQuery query = new IndexReaderMessages().new LuceneQuery();
         SearchField sf = new SearchField();
+
+        query = new IndexReaderMessages().new LuceneQuery();
+        sf = new SearchField();
         sf.setFieldId("id");
-        sf.setValue("100");
+        sf.setValue("[000000 TO 024999]");
         query.addSearchField(sf);
 
         indexDriverActor.onReceive(query);
@@ -99,7 +104,7 @@ public class IndexDriverTest {
         query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
-        sf.setValue("1");
+        sf.setValue("[025000 TO 049999]");
         query.addSearchField(sf);
 
         indexDriverActor.onReceive(query);
@@ -107,7 +112,7 @@ public class IndexDriverTest {
         query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
-        sf.setValue("2");
+        sf.setValue("[050000 TO 074999]");
         query.addSearchField(sf);
 
         indexDriverActor.onReceive(query);
@@ -115,27 +120,10 @@ public class IndexDriverTest {
         query = new IndexReaderMessages().new LuceneQuery();
         sf = new SearchField();
         sf.setFieldId("id");
-        sf.setValue("3");
+        sf.setValue("[075000 TO 100000]");
         query.addSearchField(sf);
 
         indexDriverActor.onReceive(query);
-
-        query = new IndexReaderMessages().new LuceneQuery();
-        sf = new SearchField();
-        sf.setFieldId("id");
-        sf.setValue("4");
-        query.addSearchField(sf);
-
-        indexDriverActor.onReceive(query);
-
-        query = new IndexReaderMessages().new LuceneQuery();
-        sf = new SearchField();
-        sf.setFieldId("id");
-        sf.setValue("99999");
-        query.addSearchField(sf);
-
-        indexDriverActor.onReceive(query);
-
         System.out.println("Index read end:    " + new DateTime().toString("hh:mm:ss:SSS"));
 
         Thread.sleep(1500);
@@ -156,10 +144,17 @@ public class IndexDriverTest {
 
     private SearchField getId(int id){
         SearchField sf = new SearchField();
+
+        String sId = "" + id;
+
+        sId.length();
+
+        sId = "000000".substring(0,6 - sId.length()) + sId;
+
         sf.setType(SearchField.TypeEnum.text.toString());
         sf.setFieldId("id");
 //        sf.setValue("" + new Random().nextInt());
-        sf.setValue(""+id);
+        sf.setValue(""+sId);
         sf.setStore(true);
 
         return sf;

@@ -1,4 +1,4 @@
-package org.sawzall.actor.index;
+package org.sawzall.actor.index.updater;
 
 import akka.actor.UntypedActor;
 import org.apache.lucene.document.Document;
@@ -46,8 +46,6 @@ public class IndexUpdater extends UntypedActor {
             this.indexLocation = ((LuceneIndex)message).getIndexLocation();
        }else if(message instanceof IndexUpdaterMessages.FlushIndex){
             flushIndex();
-       }else if(message instanceof IndexUpdaterMessages.CloseIndex){
-            closeIndex();
        }else if(message instanceof IndexUpdaterMessages.ShutDown){
             shutDownWriter();
        }else{
@@ -55,10 +53,6 @@ public class IndexUpdater extends UntypedActor {
        }
 
        //todo send message to remove this updater from the list of updaters.
-    }
-
-    public void shutDownWriter() throws IOException{
-        w.close();
     }
 
     public void addDoc(DocumentToIndex s) throws IOException {
@@ -89,10 +83,7 @@ public class IndexUpdater extends UntypedActor {
         }
     }
 
-    public void closeIndex() throws IOException{
+    public void shutDownWriter() throws IOException{
         w.close();
     }
-
-
-
 }

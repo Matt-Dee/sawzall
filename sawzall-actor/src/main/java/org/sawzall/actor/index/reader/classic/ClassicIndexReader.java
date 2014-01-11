@@ -1,4 +1,4 @@
-package org.sawzall.actor.index;
+package org.sawzall.actor.index.reader.classic;
 
 import akka.actor.UntypedActor;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
@@ -13,6 +13,7 @@ import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
+import org.joda.time.DateTime;
 import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.lucene.SearchField;
 import org.sawzall.message.index.lucene.LuceneIndex;
@@ -42,7 +43,7 @@ public class ClassicIndexReader extends UntypedActor {
             getSender().tell("", getSelf());
         }else if (message instanceof IndexReaderMessages.LuceneQuery){
             try{
-            query((IndexReaderMessages.LuceneQuery)message);
+                query((IndexReaderMessages.LuceneQuery)message);
             }catch (Exception e){e.printStackTrace();}
 //            getSender().tell(new String(""), getSelf());
         }
@@ -75,7 +76,7 @@ public class ClassicIndexReader extends UntypedActor {
             Query q = new QueryParser(Version.LUCENE_46, "id", analyzer).parse(querystr.toString().trim());
 
             // 3. search
-            int hitsPerPage = 10;
+            int hitsPerPage = 100000;
 
             reader = DirectoryReader.open(indexLocation);
             IndexSearcher searcher = new IndexSearcher(reader);
@@ -83,11 +84,21 @@ public class ClassicIndexReader extends UntypedActor {
             searcher.search(q, collector);
             ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
+//            System.out.println("HITS = " + hits.length + "\t" + indexLocation.toString());
+//            System.out.println("Index read end:    " + new DateTime().toString("hh:mm:ss:SSS"));
+
             // 4. display results
             for (int i = 0; i < hits.length; ++i) {
                 int docId = hits[i].doc;
+
                 Document d = searcher.doc(docId);
-                System.out.println(d.get("id") + "\t\t" + d.get("field") + "\t" + indexLocation.toString());
+
+
+
+//                int id = Integer.parseInt(d.get("id"));
+//                if(id % 100 == 0){
+//                    System.out.println(id + "\t\t" + d.get("field") + "\t" + indexLocation.toString());
+//                }
             }
 
             // reader can only be closed when there

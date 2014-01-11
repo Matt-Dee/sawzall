@@ -1,9 +1,8 @@
-package org.sawzall.actor.index;
+package org.sawzall.actor.index.reader.classic;
 
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import akka.routing.BroadcastRouter;
 import akka.routing.RoundRobinRouter;
 import org.sawzall.message.index.IndexReaderMessages;
 import org.sawzall.message.index.lucene.LuceneIndex;
